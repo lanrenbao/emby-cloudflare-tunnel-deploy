@@ -1,8 +1,23 @@
-# Emby + Cloudflare Tunnel 家庭影音服务器部署方案
+<div align="center">
 
-在家宽无公网 IP（运营商大内网 CGNAT）的环境下，部署 Emby 媒体服务器，并通过 Cloudflare Tunnel 获得固定域名 + 免费 HTTPS 公网访问。
+# 🎬 Emby + Cloudflare Tunnel
 
-> 不需要公网 IP、不需要 IPv6、不依赖路由器端口映射，CGNAT 后面照样能用。
+**无公网 IP / CGNAT 环境下的家庭影音服务器公网访问方案**
+
+![platform](https://img.shields.io/badge/platform-Windows%2010%2F11-blue)
+![Emby](https://img.shields.io/badge/Emby%20Server-4.10.x-52b043)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-Tunnel-f6821f)
+![pm2](https://img.shields.io/badge/process%20guard-pm2-2b037a)
+![License](https://img.shields.io/badge/license-MIT-green)
+![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen)
+
+**免公网 IP · 免 IPv6 · 免端口映射 · 免费 HTTPS · 大内网(CGNAT)直接用**
+
+[快速开始](#快速开始一键脚本) · [手动部署](#手动部署步骤) · [踩坑记录](#踩坑记录重要) · [安全建议](#安全建议)
+
+</div>
+
+---
 
 ## 架构
 
