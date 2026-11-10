@@ -1,0 +1,17 @@
+# config.yml.template - cloudflared tunnel config
+# Copy this file to C:\ProgramData\cloudflared\config.yml and replace:
+#   <TUNNEL-ID>     -> your tunnel UUID (from `cloudflared tunnel create emby`)
+#   <CRED-JSON-PATH> -> path printed by tunnel create, e.g.
+#                       C:\Users\<you>\.cloudflared\<TUNNEL-ID>.json
+#   <HOSTNAME>       -> your public hostname, e.g. media.example.com
+# Then run:
+#   cloudflared tunnel route dns emby <HOSTNAME>
+#   pm2 restart emby-tunnel
+
+tunnel: <TUNNEL-ID>
+credentials-file: <CRED-JSON-PATH>
+
+ingress:
+  - hostname: <HOSTNAME>
+    service: http://127.0.0.1:8096
+  - service: http_status:404
