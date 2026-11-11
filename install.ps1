@@ -84,7 +84,7 @@ Step "Starting emby-server and emby-tunnel via pm2"
 pm2 delete emby-server 2>$null | Out-Null
 pm2 delete emby-tunnel 2>$null | Out-Null
 pm2 start "$EmbyDir\EmbyServer.exe" --name emby-server --cwd "$EmbyDir" | Out-Null
-pm2 start "$cfExe" --name emby-tunnel -- --config "$CloudflaredDir\config.yml" tunnel run $TunnelName | Out-Null
+pm2 start "$cfExe" --name emby-tunnel -- --config "$CloudflaredDir\config.yml" --protocol http2 tunnel run $TunnelName | Out-Null
 pm2 save | Out-Null
 
 # 7. Verify
