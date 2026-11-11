@@ -124,7 +124,7 @@ ingress:
 
 ```powershell
 pm2 start D:\EmbyServer\EmbyServer.exe --name emby-server --cwd D:\EmbyServer
-pm2 start C:\ProgramData\cloudflared\cloudflared.exe --name emby-tunnel -- --config C:\ProgramData\cloudflared\config.yml tunnel run emby
+pm2 start C:\ProgramData\cloudflared\cloudflared.exe --name emby-tunnel -- --config C:\ProgramData\cloudflared\config.yml --protocol http2 tunnel run emby
 pm2 save
 ```
 
@@ -168,6 +168,8 @@ curl -I https://media.example.com/web/
 4. **Windows 自带 tar 不支持 7z 的 LZMA 压缩**，解压 Emby portable 包要用 7zr.exe。
 5. **公网 502 排查顺序**：`pm2 ls` 看进程 → `curl http://127.0.0.1:8096/web/` 验证本机 Emby → `cloudflared tunnel info emby` 看隧道连接数 → 检查 config.yml 的 hostname/service。
 6. **错误 DNS 记录清理**：`tunnel route dns` 在证书 zone 不匹配时会把子域名拼到旧域名下（如 `emby.a.com.b.com`），需到 Cloudflare 后台 DNS 页手动删除。
+7. **CGNAT 下隧道抖动/超时**：默认 QUIC 协议走 UDP，家宽 CGNAT 环境容易被限流导致连接不稳。启动参数加 `--protocol http2`（TCP）可显著提升稳定性——这是实测踩坑后从 typecho 隧道稳定运行中总结出的。
+8. **重启后隧道 530**：如果 pm2 resurrect 后隧道应用没起来，Cloudflare 会返回 530（源站不可达）。检查 `pm2 ls` 是否包含 emby-server/emby-tunnel，缺失就重新 `pm2 start` 并 `pm2 save`（dump 里必须包含这两个应用才会随开机自启恢复）。
 
 ## 安全建议
 
