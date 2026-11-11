@@ -21,7 +21,8 @@ module.exports = {
       name: "emby-tunnel",
       script: CLOUDFLARED_DIR + "\\cloudflared.exe",
       args: [
-        "tunnel", "--config", CLOUDFLARED_DIR + "\\config.yml", "run", "emby"
+        "tunnel", "--config", CLOUDFLARED_DIR + "\\config.yml",
+        "--protocol", "http2", "run", "emby"
       ],
       max_restarts: 10,
       restart_delay: 5000
